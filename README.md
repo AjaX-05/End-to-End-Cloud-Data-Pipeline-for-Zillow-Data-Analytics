@@ -10,7 +10,6 @@
     - [Transform and Load to S3 Golden](#transform-and-load-to-s3-golden)
 6. [Redshift Configuration](#redshift-configuration)
 7. [Airflow DAG](#airflow-dag)
-8. [QuickSight Visualization](#quicksight-visualization)
 9. [Conclusion](#conclusion)
 10. [Screenshots](#screenshots)
 
@@ -18,7 +17,7 @@
 This project demonstrates an end-to-end cloud data pipeline built using AWS services to extract data from Zillow using the Rapid API, process it through various stages, and visualize it using QuickSight. The pipeline is orchestrated using Apache Airflow running on an EC2 instance.
 
 ## Architecture
-![Architecture](path/to/architecture-diagram.png)
+![Architecture](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/Project-Architecture.pdf)
 
 ## Technologies Used
 - **AWS S3**: For data storage across different stages.
@@ -64,22 +63,19 @@ Follow these steps to set up and configure the pipeline:
     ```
 
 5. **Deploy Lambda Functions:**
-   - [Copy From S3 Bronze to S3 Silver Lambda Function](https://github.com/yourusername/yourrepo/blob/main/copyFromS3BronzeToS3Silver.py)
-   - [Transform and Load to S3 Golden Lambda Function](https://github.com/yourusername/yourrepo/blob/main/transformation_convert_to_csv_s3golden_lambdafunction.py)
+   - [Copy From S3 Bronze to S3 Silver Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py)
+   - [Transform and Load to S3 Golden Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py)
 
 6. **Set Up Redshift:**
    - [Redshift Cluster Setup and Schema](https://github.com/yourusername/yourrepo/blob/main/redshift_cluster_setup.py)
    - [Schema SQL](https://github.com/yourusername/yourrepo/blob/main/schema.sql)
 
 7. **Set Up Apache Airflow:**
-   - [Airflow DAG Script](https://github.com/yourusername/yourrepo/blob/main/zillow_data_pipeline_dag.py)
+   - [Airflow DAG Script](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py)
 
-8. **Configure QuickSight:**
-   - [QuickSight Dashboard File](https://github.com/yourusername/yourrepo/blob/main/quicksight_dashboard_file.json)
 
 ## Conclusion
 This project demonstrates a robust data pipeline for processing Zillow data using AWS services. The pipeline effectively extracts, transforms, and loads data, providing valuable insights through QuickSight visualizations.
 
-## Screenshots
-- **Architecture Diagram**: ![Architecture](path/to/architecture-diagram.png)
-- **QuickSight Dashboard**: ![QuickSight Dashboard](path/to/quicksight-screenshot.png)
+## Result
+- **QuickSight Visualization**: ![QuickSight Visualization](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/Quicksight.png)
