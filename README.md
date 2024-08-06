@@ -12,7 +12,6 @@
 7. [Redshift Configuration](#redshift-configuration)
 8. [QuickSight Visualization](#quicksight-visualization)
 9. [Conclusion](#conclusion)
-10. [Screenshots](#screenshots)
 
 ## Introduction
 This project demonstrates an end-to-end cloud data pipeline built using AWS services to extract data from Zillow using the Rapid API, process it through various stages, and visualize it using QuickSight. The pipeline is orchestrated using Apache Airflow running on an EC2 instance.
@@ -96,13 +95,21 @@ Follow these steps to set up and configure the pipeline:
     );
     ```
 
+   - Airflow will automate the process of transferring data from the S3 bucket to Redshift. Using the `S3ToRedshiftOperator`, it will move the data from the S3 Golden bucket into the Redshift table for further analysis.
+
 ## Airflow DAG
-The Airflow DAG script orchestrates the entire pipeline workflow. You can find the Airflow DAG script [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py).
+The Airflow DAG script orchestrates the entire pipeline workflow. It automates the following tasks:
+- **Extract Zillow Data**: Uses a PythonOperator to fetch data from Zillow and store it locally.
+- **Load to S3**: Moves the extracted data to an S3 bucket using a BashOperator.
+- **Check File Availability**: Uses S3KeySensor to ensure the file is available in the S3 bucket.
+- **Transfer to Redshift**: Uses S3ToRedshiftOperator to move the data from S3 to Redshift.
+
+You can find the Airflow DAG script [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py).
 
 ## Lambda Functions
 
 ### Copy From S3 Bronze to S3 Silver
-The Lambda function `copyFromS3BronzeToS3Silver` is designed to copy data from the S3 Bronze bucket (Landing Zone) to the S3 Silver bucket (Intermediate Zone). Here's how it works:
+The Lambda function `copyFromS3BronzeToS3Silver` is designed to copy data from the S3 Bronze bucket (Landing Zone) to the S3 Silver bucket (Intermediate Zone). Here’s how it works:
 1. **Trigger**: The function is triggered by S3 events, which provide the source bucket and object key.
 2. **Waiter**: It uses an S3 waiter to ensure that the object exists in the source bucket before proceeding.
 3. **Copy**: It copies the object to the target bucket (S3 Silver).
@@ -111,7 +118,7 @@ The Lambda function `copyFromS3BronzeToS3Silver` is designed to copy data from t
 The code for this function is available [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py).
 
 ### Transform and Load to S3 Golden
-The Lambda function `transformation-convert-to-csv-s3golden-lambdafunction` performs data transformation and loads the processed data into the S3 Golden bucket. Here's how it works:
+The Lambda function `transformation-convert-to-csv-s3golden-lambdafunction` performs data transformation and loads the processed data into the S3 Golden bucket. Here’s how it works:
 1. **Trigger**: This function is triggered by S3 events from the S3 Silver bucket (Intermediate Zone).
 2. **Waiter**: It waits for the object to be available in the source bucket before proceeding.
 3. **Download and Transform**: It retrieves the JSON object, converts it to a Pandas DataFrame, selects specific columns, and then converts the DataFrame to CSV format.
@@ -120,9 +127,6 @@ The Lambda function `transformation-convert-to-csv-s3golden-lambdafunction` perf
 
 The code for this function is available [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py).
 
-## Redshift Configuration
-Instructions for Redshift configuration, including creating tables and setting up the Redshift cluster, are detailed [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/redshift_configuration.md).
-
 ## QuickSight Visualization
 ![image](https://github.com/user-attachments/assets/2f3fb1b8-fbea-40e1-bbd5-6ec9359c9144)
 
@@ -130,5 +134,3 @@ For visualization, use AWS QuickSight to connect to the Redshift cluster and cre
 
 ## Conclusion
 This pipeline demonstrates a robust end-to-end solution for processing and analyzing Zillow data using various AWS services. By following the provided instructions, you can set up and deploy the pipeline to gain valuable insights from real estate data.
-
-
