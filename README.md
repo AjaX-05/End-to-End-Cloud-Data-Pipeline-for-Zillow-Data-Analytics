@@ -19,7 +19,6 @@
 This project demonstrates an end-to-end cloud data pipeline built using AWS services to extract data from Zillow using the Rapid API, process it through various stages, and visualize it using QuickSight. The pipeline is orchestrated using Apache Airflow running on an EC2 instance.
 
 ## Architecture
-![Architecture](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/Project-Architecture.pdf)
 ![image](https://github.com/user-attachments/assets/0e607b15-400a-4850-bf02-9769df341128)
 
 ## Technologies Used
