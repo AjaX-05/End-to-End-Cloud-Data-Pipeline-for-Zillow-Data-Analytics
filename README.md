@@ -9,11 +9,10 @@
 6. [Lambda Functions](#lambda-functions)
     - [Copy From S3 Bronze to S3 Silver](#copy-from-s3-bronze-to-s3-silver)
     - [Transform and Load to S3 Golden](#transform-and-load-to-s3-golden)
-7. [Deploy Lambda Functions](#deploy-lambda-functions)
-8. [Redshift Configuration](#redshift-configuration)
-9. [QuickSight Visualization](#quicksight-visualization)
-10. [Conclusion](#conclusion)
-11. [Screenshots](#screenshots)
+7. [Redshift Configuration](#redshift-configuration)
+8. [QuickSight Visualization](#quicksight-visualization)
+9. [Conclusion](#conclusion)
+10. [Screenshots](#screenshots)
 
 ## Introduction
 This project demonstrates an end-to-end cloud data pipeline built using AWS services to extract data from Zillow using the Rapid API, process it through various stages, and visualize it using QuickSight. The pipeline is orchestrated using Apache Airflow running on an EC2 instance.
@@ -35,7 +34,13 @@ This project demonstrates an end-to-end cloud data pipeline built using AWS serv
 ## Setup and Configuration
 Follow these steps to set up and configure the pipeline:
 
-1. **Update Package Lists and Install Dependencies:**
+1. **Spin Up an EC2 Instance:**
+   - Launch an EC2 t2.medium instance and configure it as needed.
+
+2. **Connect to Your EC2 Instance:**
+   - SSH into your EC2 instance to start the setup process.
+
+3. **Update Package Lists and Install Dependencies:**
 
     ```bash
     sudo apt update
@@ -43,40 +48,37 @@ Follow these steps to set up and configure the pipeline:
     sudo apt install python3.10-venv
     ```
 
-2. **Create and Activate a Virtual Environment:**
+4. **Create and Activate a Virtual Environment:**
 
     ```bash
     python3 -m venv myenv
     source myenv/bin/activate
     ```
 
-3. **Install AWS CLI and Apache Airflow:**
+5. **Install AWS CLI and Apache Airflow:**
 
     ```bash
     pip install --upgrade awscli
-    sudo pip install apache-airflow
+    pip install apache-airflow
     airflow standalone
     ```
 
-4. **Install Airflow Providers for Amazon:**
+6. **Install Airflow Providers for Amazon:**
 
     ```bash
     pip install apache-airflow-providers-amazon
     ```
 
-5. **Spin Up an EC2 Instance:**
-   - Launch an EC2 t2.medium instance and configure it as needed.
-
-6. **Set Up Apache Airflow:**
+7. **Set Up Apache Airflow:**
    - The Airflow DAG script orchestrates the entire pipeline workflow:
      - [Airflow DAG Script](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py)
 
-7. **Deploy Lambda Functions:**
+8. **Deploy Lambda Functions:**
    - The Lambda functions are responsible for data transformation and processing. You can deploy them using the following scripts:
      - [Copy From S3 Bronze to S3 Silver Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py)
      - [Transform and Load to S3 Golden Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py)
 
-8. **Set Up Redshift:**
+9. **Set Up Redshift:**
    - Provision a Redshift cluster, log in using your credentials, and create the required table for data loading. The table schema is as follows:
 
     ```sql
@@ -99,13 +101,23 @@ The Airflow DAG script orchestrates the entire pipeline workflow. You can find t
 ## Lambda Functions
 
 ### Copy From S3 Bronze to S3 Silver
-The Lambda function responsible for copying data from the S3 Bronze bucket to the S3 Silver bucket can be found [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py).
+The Lambda function `copyFromS3BronzeToS3Silver` is designed to copy data from the S3 Bronze bucket (Landing Zone) to the S3 Silver bucket (Intermediate Zone). Here's how it works:
+1. **Trigger**: The function is triggered by S3 events, which provide the source bucket and object key.
+2. **Waiter**: It uses an S3 waiter to ensure that the object exists in the source bucket before proceeding.
+3. **Copy**: It copies the object to the target bucket (S3 Silver).
+4. **Response**: The function returns a success message upon successful completion.
+
+The code for this function is available [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py).
 
 ### Transform and Load to S3 Golden
-The Lambda function responsible for transforming data and loading it into the S3 Golden bucket can be found [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py).
+The Lambda function `transformation-convert-to-csv-s3golden-lambdafunction` performs data transformation and loads the processed data into the S3 Golden bucket. Here's how it works:
+1. **Trigger**: This function is triggered by S3 events from the S3 Silver bucket (Intermediate Zone).
+2. **Waiter**: It waits for the object to be available in the source bucket before proceeding.
+3. **Download and Transform**: It retrieves the JSON object, converts it to a Pandas DataFrame, selects specific columns, and then converts the DataFrame to CSV format.
+4. **Upload**: The CSV data is then uploaded to the S3 Golden bucket.
+5. **Response**: The function returns a success message upon successful completion.
 
-## Deploy Lambda Functions
-You can deploy the Lambda functions using the provided scripts. Follow the AWS Lambda documentation for deployment instructions.
+The code for this function is available [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py).
 
 ## Redshift Configuration
 Instructions for Redshift configuration, including creating tables and setting up the Redshift cluster, are detailed [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/redshift_configuration.md).
