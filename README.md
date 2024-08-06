@@ -70,7 +70,9 @@ Follow these steps to set up and configure the pipeline:
 
 7. **Set Up Apache Airflow:**
    - The Airflow DAG script orchestrates the entire pipeline workflow:
-     - [Airflow DAG Script](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py)
+   - [Airflow DAG Script](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py)
+   - AWS Access Key, secret key, and Redshift endpoints are configured in the Airflow UI under the Connections and Variables sections to ensure secure and seamless integration with AWS services.
+
 
 8. **Deploy Lambda Functions:**
    - The Lambda functions are responsible for data transformation and processing. The API key used for accessing the Rapid API is handled securely by storing it in a separate `.json` file. This file is not included in the code repository for security reasons.
