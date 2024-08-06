@@ -74,7 +74,8 @@ Follow these steps to set up and configure the pipeline:
      - [Airflow DAG Script](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/zillowanalytics.py)
 
 8. **Deploy Lambda Functions:**
-   - The Lambda functions are responsible for data transformation and processing. You can deploy them using the following scripts:
+   - The Lambda functions are responsible for data transformation and processing. The API key used for accessing the Rapid API is handled securely by storing it in a separate `.json` file. This file is not included in the code repository for security reasons.
+   - You can deploy the Lambda functions using the following scripts:
      - [Copy From S3 Bronze to S3 Silver Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function1.py)
      - [Transform and Load to S3 Golden Lambda Function](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/lambda_function2.py)
 
@@ -123,11 +124,11 @@ The code for this function is available [here](https://github.com/AjaX-05/End-to
 Instructions for Redshift configuration, including creating tables and setting up the Redshift cluster, are detailed [here](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/redshift_configuration.md).
 
 ## QuickSight Visualization
+![image](https://github.com/user-attachments/assets/2f3fb1b8-fbea-40e1-bbd5-6ec9359c9144)
+
 For visualization, use AWS QuickSight to connect to the Redshift cluster and create dashboards and reports based on the data.
 
 ## Conclusion
 This pipeline demonstrates a robust end-to-end solution for processing and analyzing Zillow data using various AWS services. By following the provided instructions, you can set up and deploy the pipeline to gain valuable insights from real estate data.
 
-## Screenshots
-- [QuickSight Visualization Screenshot](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/quicksight_screenshot.png)
-- [Architecture Diagram](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/architecture_diagram.png)
+
