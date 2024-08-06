@@ -20,6 +20,7 @@ This project demonstrates an end-to-end cloud data pipeline built using AWS serv
 
 ## Architecture
 ![Architecture](https://github.com/AjaX-05/End-to-End-Cloud-Data-Pipeline-for-Zillow-Data-Analytics/blob/main/Project-Architecture.pdf)
+![image](https://github.com/user-attachments/assets/0e607b15-400a-4850-bf02-9769df341128)
 
 ## Technologies Used
 - **AWS S3**: For data storage across different stages.
