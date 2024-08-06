@@ -7,8 +7,8 @@
 4. [Setup and Configuration](#setup-and-configuration)
 5. [Airflow DAG](#airflow-dag)
 6. [Lambda Functions](#lambda-functions)
-    - [Copy From S3 Bronze to S3 Silver](#copy-from-s3-bronze-to-s3-silver)
-    - [Transform and Load to S3 Golden](#transform-and-load-to-s3-golden)
+    - [Copy From S3 Bronze to S3 Silver]
+    - [Transform and Load to S3 Golden]
 7. [Deploy Lambda Functions](#deploy-lambda-functions)
 8. [Redshift Configuration](#redshift-configuration)
 9. [QuickSight Visualization](#quicksight-visualization)
